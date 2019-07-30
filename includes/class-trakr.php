@@ -68,7 +68,7 @@ class Trakr {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'Trakr';
+		$this->plugin_name = 'trakr';
 		$this->version = '1.0';
 
 		$this->load_dependencies();
@@ -149,11 +149,13 @@ class Trakr {
 	 */
 	private function define_admin_hooks() {
 		$plugin_admin = new Trakr_Admin( $this->get_plugin_name(), $this->get_version() );
-    $this->loader->add_action('admin_menu', $plugin_admin, 'admin_page');
+    // $this->loader->add_action('admin_menu', $plugin_admin, 'admin_page');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'trakr_project');
-    $this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
-		//Register our own submission handler through the admin_post
-		$this->loader->add_action( 'admin_post_trakr_config_form', $plugin_admin, 'trakr_config_form_submit');
+    // $this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
+
+		// Our own custom form submission handler
+		$this->loader->add_action( 'admin_post_trakr_project_form_response', $plugin_admin, 'trakr_project_form_submit');
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'form_submission_notice');
 	}
 
 	/**

@@ -31,6 +31,8 @@ class Trakr_Deactivator {
 	 */
 	public static function deactivate() {
     delete_option('trakr_version');
+		delete_option('trakr_project');
+		delete_option('trakr_settings');
     flush_rewrite_rules();
 	}
 
